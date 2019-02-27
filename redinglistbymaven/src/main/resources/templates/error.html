@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Oop!</title>
+    <link rel="stylesheet" th:href="@{/style.css}"></link>
+</head>
+<body>
+<div class="errorPage">
+    <span class="oops">Oops!</span><br/>
+    <p><span th:text="${'reqeustPath:'+ path}"></span></p>
+    <p th:text="${'Details:'+ message}"></p>
+</div>
+
+</body>
+</html>
