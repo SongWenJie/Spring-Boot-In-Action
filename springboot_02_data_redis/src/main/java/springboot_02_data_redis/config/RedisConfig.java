@@ -102,8 +102,8 @@ public class RedisConfig {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
         redisStandaloneConfiguration.setHostName(env.getProperty("redis.host").trim());
         redisStandaloneConfiguration.setPort(Integer.parseInt(env.getProperty("redis.port").trim()));
-        redisStandaloneConfiguration.setDatabase(Integer.parseInt(env.getProperty("redis.database")));
-        redisStandaloneConfiguration.setPassword(env.getProperty("redis.password"));
+        redisStandaloneConfiguration.setDatabase(Integer.parseInt(env.getProperty("redis.database").trim()));
+        redisStandaloneConfiguration.setPassword(env.getProperty("redis.password").trim());
 
         //这里需要注意的是，edisConnectionFactoryJ对于Standalone模式的没有（RedisStandaloneConfiguration，JedisPoolConfig）的构造函数，对此
         //我们用JedisClientConfiguration接口的builder方法实例化一个构造器，还得类型转换
@@ -119,12 +119,14 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.afterPropertiesSet();
 
         //通过JavaConfig创建自定义redisTemplate时，可以在此处进行编码统一处理
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
         redisTemplate.setValueSerializer(redisSerializer);
+
+        //默认编码处理
+        redisTemplate.afterPropertiesSet();
 
         return redisTemplate;
     }
