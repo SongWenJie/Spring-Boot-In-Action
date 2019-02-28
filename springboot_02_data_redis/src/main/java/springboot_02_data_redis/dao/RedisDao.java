@@ -20,8 +20,8 @@ public class RedisDao {
     @Resource
     private  RedisTemplate<String,Object> redisTemplate;
 
-//    ValueOperations是更具体的操作接口,使用的是默认的RedisTemplate
-//    默认的RedisTemplate没有提供针对key编码的处理
+//    ValueOperations是更具体的操作接口,包含在RedisTemplate模板类中
+//    spring-data-redis的RedisTemplate<K, V>模板类在操作redis时默认使用JdkSerializationRedisSerializer来进行序列化
 //    @Resource(name = "redisTemplate")
 //    protected ValueOperations<String,Object> valueOperations;
 
@@ -29,6 +29,7 @@ public class RedisDao {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
         redisTemplate.setValueSerializer(redisSerializer);
+
         ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key, value);
     }
@@ -37,6 +38,7 @@ public class RedisDao {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
         redisTemplate.setValueSerializer(redisSerializer);
+
         ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
         return valueOperations.get(key);
     }

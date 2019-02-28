@@ -17,8 +17,8 @@ public class RedisDaoTest {
 
     @Test
     public void addValue() throws Exception {
-        redisDao.addValue("testkey","testvalue");
-        Object value = redisDao.getValue("testkey");
+        redisDao.addValue("testkey1","testvalue1");
+        Object value = redisDao.getValue("testkey1");
         System.out.println(value);
     }
 }
