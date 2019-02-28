@@ -75,4 +75,14 @@ public class AuthorController {
         return authorService.addOrUpdate(author);
     }
 
+    @GetMapping("/findAllByEntityManager")
+    public List<Author> findAllByEntityManager(){
+        return authorService.findAllByEntityManager();
+    }
+
+    @GetMapping("/findAuthorByEntityManager")
+    public Author findAuthorByEntityManager(long id){
+        return authorService.findAuthorByEntityManager(id);
+    }
+
 }

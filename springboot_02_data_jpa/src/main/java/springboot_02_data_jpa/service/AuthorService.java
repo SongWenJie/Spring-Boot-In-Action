@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import springboot_02_data_jpa.dao.AuthorRepository;
+import springboot_02_data_jpa.dao.Impl.AuthorDaoImpl;
 import springboot_02_data_jpa.model.Author;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public class AuthorService {
 
     @Autowired
     private AuthorRepository authorRepository;
+
+    @Autowired
+    private AuthorDaoImpl authorDao;
 
     /** 
     * @Description: 查询全部 
@@ -197,7 +201,26 @@ public class AuthorService {
     }
 
 
-
-
+    /** 
+    * @Description: 使用entityManager查询全部
+    * @Param: [] 
+    * @return: java.util.List<springboot_02_data_jpa.model.Author> 
+    * @Author: songwenjie 
+    * @Date: 2019/2/28 
+    */ 
+    public List<Author> findAllByEntityManager(){
+        return authorDao.findAll();
+    }
+    
+    /** 
+    * @Description: 使用entityManager查询单个记录 
+    * @Param: [id] 
+    * @return: springboot_02_data_jpa.model.Author 
+    * @Author: songwenjie 
+    * @Date: 2019/2/28 
+    */ 
+    public Author findAuthorByEntityManager(long id){
+        return authorDao.findAuthor(id);
+    }
 
 }
